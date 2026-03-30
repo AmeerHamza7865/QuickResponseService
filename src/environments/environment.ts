@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://quickresponse.runasp.net/api'
+  apiUrl: 'http://localhost:5044/api'
 };
