@@ -1,0 +1,112 @@
+<section class="bg-gray-50 dark:bg-gray-900 min-h-[80vh] py-16">
+  <div class="max-w-screen-xl px-4 mx-auto">
+    
+    <div class="mb-10 text-center lg:text-left">
+        <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">Schedule Your Service</h2>
+        <p class="text-lg font-normal text-gray-500 dark:text-gray-400">Please provide your details and choose a convenient time.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
+      
+      <!-- Left Column: Form -->
+      <div class="lg:col-span-2 space-y-8">
+        <div class="p-6 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
+          <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()" class="space-y-6">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Full Name</label>
+                    <input type="text" id="name" formControlName="customerName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="e.g. John Doe" required>
+                </div>
+                <div>
+                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email Address</label>
+                    <input type="email" id="email" formControlName="customerEmail" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="e.g. john@example.com" required>
+                </div>
+            </div>
+
+            <div>
+                <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Preferred Date</label>
+                <div class="relative max-w-sm">
+                  <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                     <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                      </svg>
+                  </div>
+                  <input type="date" id="date" formControlName="bookingDate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                </div>
+            </div>
+
+            <div>
+                <label for="notes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Additional Notes (Optional)</label>
+                <textarea id="notes" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Briefly describe the issue..."></textarea>
+            </div>
+
+            <!-- Success Alert -->
+            <div *ngIf="success" class="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+              <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+              </svg>
+              <div>
+                <span class="font-medium">Success!</span> Your booking is confirmed. Redirecting...
+              </div>
+            </div>
+
+            <!-- Error Alert -->
+            <div *ngIf="error" class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+              <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z"/>
+              </svg>
+              <div>
+                <span class="font-medium">Error!</span> {{ error }}
+              </div>
+            </div>
+
+            <button type="submit" [disabled]="bookingForm.invalid || loading" class="text-white w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-4 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                {{ loading ? 'Securing your slot...' : 'Confirm Booking Request' }}
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Right Column: Sidebar -->
+      <aside class="lg:col-span-1 lg:sticky lg:top-28 space-y-6" *ngIf="service$ | async as service">
+        
+        <div class="p-6 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
+          <h3 class="mb-6 text-lg font-bold text-gray-900 dark:text-white uppercase tracking-wide border-b border-gray-200 dark:border-gray-700 pb-3">Booking Details</h3>
+          
+          <div class="flex items-center gap-4 mb-6">
+             <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center text-2xl text-blue-600 dark:text-blue-400">
+                🛠️
+             </div>
+             <div>
+                <h4 class="text-lg font-semibold text-gray-900 dark:text-white leading-tight">{{ service.name }}</h4>
+                <span class="text-xs font-bold text-gray-500 uppercase tracking-wider dark:text-gray-400">{{ service.serviceType }}</span>
+             </div>
+          </div>
+          
+          <div class="space-y-4 text-sm">
+            <div class="flex justify-between items-center text-gray-600 dark:text-gray-400 border-b border-gray-100 dark:border-gray-700 pb-4">
+              <span class="font-medium">Base Price</span>
+              <span class="font-semibold text-gray-900 dark:text-white">Rs. {{ service.price }}</span>
+            </div>
+            <div class="flex justify-between items-center text-gray-600 dark:text-gray-400 border-b border-gray-100 dark:border-gray-700 pb-4">
+              <span class="font-medium">Tax & Fees</span>
+              <span class="font-semibold text-gray-900 dark:text-white">Rs. 0</span>
+            </div>
+            <div class="flex justify-between items-center text-lg pt-2 mt-2">
+              <span class="font-bold text-gray-900 dark:text-white">Estimated Total</span>
+              <span class="font-black text-blue-700 dark:text-blue-400">Rs. {{ service.price }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-5 bg-blue-50 border border-blue-100 rounded-xl dark:bg-blue-900/20 dark:border-blue-800 text-center">
+            <span class="block mb-2 text-2xl">🛡️</span>
+            <strong class="block mb-1 text-blue-800 dark:text-blue-300 font-bold">100% Satisfaction Guarantee</strong>
+            <p class="text-sm text-blue-600 dark:text-blue-400">Pay only after the work is completed to your satisfaction.</p>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>

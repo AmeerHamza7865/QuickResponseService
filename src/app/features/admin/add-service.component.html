@@ -1,0 +1,50 @@
+<section class="bg-gray-50 dark:bg-gray-900 min-h-screen py-8 lg:py-16">
+  <div class="max-w-2xl px-4 py-8 mx-auto lg:py-16 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+      <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Add a new service</h2>
+      
+      <div *ngIf="success" class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+          <span class="font-medium">Success!</span> Service added successfully. Redirecting to dashboard...
+      </div>
+
+      <div *ngIf="error" class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+          <span class="font-medium">Error!</span> {{ error }}
+      </div>
+
+      <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
+          <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6">
+              <div class="sm:col-span-2">
+                  <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Service Name</label>
+                  <input type="text" id="name" formControlName="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Type service name" required>
+              </div>
+              <div class="sm:col-span-2">
+                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                <textarea id="description" rows="4" formControlName="description" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Service description here"></textarea>
+              </div>
+              <div class="w-full">
+                  <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price (Rs.)</label>
+                  <input type="number" id="price" formControlName="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="2999" required>
+              </div>
+              <div>
+                  <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+                  <select id="category" formControlName="categoryId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <option value="" disabled selected>Select category</option>
+                      <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
+                  </select>
+              </div>
+              <div>
+                  <label for="serviceType" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Service Type</label>
+                  <input type="text" id="serviceType" formControlName="serviceType" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="e.g. Repair, Installation" required>
+              </div>
+          </div>
+          <div class="flex items-center space-x-4">
+              <button type="submit" [disabled]="serviceForm.invalid || loading" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:opacity-50 transition-colors shadow-md">
+                  {{ loading ? 'Adding...' : 'Add Service' }}
+              </button>
+              <button type="button" (click)="serviceForm.reset()" class="text-red-600 inline-flex items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900 transition-colors">
+                  <svg class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                  Discard
+              </button>
+          </div>
+      </form>
+  </div>
+</section>
